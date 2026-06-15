@@ -14,7 +14,6 @@ import java.util.Scanner;
  */
 
 public class ConsoleUI {
-
     private final Scanner scanner;
     private final UniversityManager manager;
 
@@ -24,11 +23,8 @@ public class ConsoleUI {
     }
 
     public void start() {
-
         boolean running = true;
-
         while (running) {
-
             System.out.println("""
                            
                     ===== Университетская система =====
@@ -47,9 +43,7 @@ public class ConsoleUI {
                     """);
 
             System.out.print("Выберите пункт меню: ");
-
             int choice = readInt();
-
             switch (choice) {
                 case 1 -> createStudent();
                 case 2 -> createTeacher();
@@ -84,12 +78,10 @@ public class ConsoleUI {
         String studentId = scanner.nextLine();
 
         manager.createStudent(name, age, studentId);
-
         System.out.println("Студент создан");
     }
 
     private void createTeacher() {
-
         System.out.print("Имя: ");
         String name = scanner.nextLine();
 
@@ -100,22 +92,18 @@ public class ConsoleUI {
         String subject = scanner.nextLine();
 
         manager.createTeacher(name, age, subject);
-
         System.out.println("Преподаватель создан");
     }
 
     private void createGroup() {
-
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
         manager.createGroup(groupName);
-
         System.out.println("Группа создана");
     }
 
     private void createAuditorium() {
-
         System.out.print("Номер кабинета: ");
         int cabinetNumber = readInt();
 
@@ -123,12 +111,10 @@ public class ConsoleUI {
         int capacity = readInt();
 
         manager.createAuditorium(cabinetNumber, capacity);
-
         System.out.println("Аудитория создана");
     }
 
     private void createSubject() {
-
         System.out.print("Название предмета: ");
         String subjectName = scanner.nextLine();
 
@@ -145,7 +131,6 @@ public class ConsoleUI {
         System.out.print("Номер аудитории: ");
 
         int cabinetNumber = readInt();
-
         Auditorium auditorium = null;
 
         for (Auditorium a : manager.getRepository().getAuditoriums()) {
@@ -161,12 +146,10 @@ public class ConsoleUI {
         }
 
         manager.createSubject(subjectName, teacher, auditorium);
-
         System.out.println("Предмет создан");
     }
 
     private void addStudentToGroup() {
-
         System.out.print("Номер студенческого билета: ");
         String studentId = scanner.nextLine();
 
@@ -195,12 +178,10 @@ public class ConsoleUI {
         }
 
         manager.addStudentToGroup(student, group);
-
         System.out.println("Студент добавлен в группу");
     }
 
     private void addSubjectToGroup() {
-
         System.out.print("Название предмета: ");
         String subjectName = scanner.nextLine();
 
@@ -229,12 +210,10 @@ public class ConsoleUI {
         }
 
         manager.addSubjectToGroup(subject, group);
-
         System.out.println("Предмет добавлен в группу");
     }
 
     private void showStudentsInGroup() {
-
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
@@ -249,7 +228,6 @@ public class ConsoleUI {
     }
 
     private void showSubjectsInGroup() {
-
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
@@ -264,7 +242,6 @@ public class ConsoleUI {
     }
 
     private void showTeacherSubjects() {
-
         System.out.print("Имя преподавателя: ");
         String teacherName = scanner.nextLine();
 
@@ -279,9 +256,7 @@ public class ConsoleUI {
     }
 
     private int readInt() {
-
         while (true) {
-
             try {
                 return Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
@@ -291,7 +266,6 @@ public class ConsoleUI {
     }
 
     private void sortStudentsByAge() {
-
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
