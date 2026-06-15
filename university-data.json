@@ -1,0 +1,27 @@
+{
+  "students" : [ {
+    "name" : "Bob",
+    "age" : 19,
+    "studentId" : "3"
+  }, {
+    "name" : "Ivan",
+    "age" : 23,
+    "studentId" : "1"
+  } ],
+  "teachers" : [ ],
+  "groups" : [ {
+    "groupName" : "999",
+    "students" : [ {
+      "name" : "Bob",
+      "age" : 19,
+      "studentId" : "3"
+    }, {
+      "name" : "Ivan",
+      "age" : 23,
+      "studentId" : "1"
+    } ],
+    "subjects" : [ ]
+  } ],
+  "subjects" : [ ],
+  "auditoriums" : [ ]
+}
