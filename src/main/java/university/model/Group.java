@@ -1,10 +1,10 @@
 package university.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import university.IPrintable;
 import university.strategy.StudentSortStrategy;
 
@@ -17,6 +17,8 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Slf4j
 public class Group implements IPrintable {
 
     private String groupName;
@@ -52,10 +54,10 @@ public class Group implements IPrintable {
 
     @Override
     public void printInfo() {
-        System.out.printf("""
-                Группа: %s,
-                Список студентов: %d,
-                Количество предметов: %d%n,              
+        log.info("""
+                Группа: {},
+                Список студентов: {},
+                Количество предметов: {},              
                 """, groupName, students.size(), subjects.size());
     }
 

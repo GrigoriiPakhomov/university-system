@@ -2,7 +2,11 @@ package university.service;
 
 import lombok.Getter;
 import university.factory.UniversityFactory;
-import university.model.*;
+import university.model.Auditorium;
+import university.model.Group;
+import university.model.Student;
+import university.model.Subject;
+import university.model.Teacher;
 import university.repository.UniversityRepository;
 import university.storage.JsonStorage;
 

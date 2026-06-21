@@ -1,6 +1,10 @@
 package university.ui;
 
-import university.model.*;
+import university.model.Teacher;
+import university.model.Auditorium;
+import university.model.Student;
+import university.model.Subject;
+import university.model.Group;
 import university.service.UniversityManager;
 import university.strategy.SortByAgeStrategy;
 

@@ -1,6 +1,10 @@
 package university.model;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import university.IPrintable;
 
 /**
@@ -11,6 +15,7 @@ import university.IPrintable;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Slf4j
 public class Teacher implements IPrintable {
 
     private String name;
@@ -25,11 +30,10 @@ public class Teacher implements IPrintable {
 
     @Override
     public void printInfo() {
-        System.out.printf("""
-                Преподаватель: %s,
-                Возраст: %d,
-                Предмет: %s%n
+        log.info("""
+                Преподаватель: {},
+                Возраст: {},
+                Предмет: {}
                 """, name, age, subject);
     }
-
 }

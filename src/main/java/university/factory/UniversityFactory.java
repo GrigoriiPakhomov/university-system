@@ -1,6 +1,12 @@
 package university.factory;
 
-import university.model.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import university.model.Student;
+import university.model.Teacher;
+import university.model.Group;
+import university.model.Subject;
+import university.model.Auditorium;;
 
 /**
  * Фабрика для создания объектов системы.
@@ -8,10 +14,11 @@ import university.model.*;
  * Реализует паттерн Factory Method.
  */
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class UniversityFactory {
 
-    private UniversityFactory() {
-    }
+//    private UniversityFactory() {
+//    }
 
     public static Student createStudent(String name, int age, String studentId) {
         return new Student(name, age, studentId);

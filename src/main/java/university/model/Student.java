@@ -1,7 +1,11 @@
 package university.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import university.IPrintable;
 
 /**
@@ -10,7 +14,9 @@ import university.IPrintable;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "studentId")
+@Slf4j
 public class Student implements IPrintable {
 
     private String name;
@@ -27,10 +33,10 @@ public class Student implements IPrintable {
 
     @Override
     public void printInfo() {
-        System.out.printf("""
-                Студент: %s,
-                Возраст: %d,
-                ID: %s%n
+        log.info("""
+                Студент: {},
+                Возраст: {},
+                ID: {}
                 """, name, age, studentId);
     }
 

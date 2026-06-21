@@ -1,8 +1,11 @@
 package university.repository;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import university.model.*;
+import university.model.Auditorium;
+import university.model.Group;
+import university.model.Student;
+import university.model.Subject;
+import university.model.Teacher;
 
 import java.util.ArrayList;
 import java.util.List;
