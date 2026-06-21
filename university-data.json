@@ -7,6 +7,10 @@
     "name" : "Ivan",
     "age" : 23,
     "studentId" : "1"
+  }, {
+    "name" : "Den",
+    "age" : 24,
+    "studentId" : "5"
   } ],
   "teachers" : [ ],
   "groups" : [ {
@@ -19,6 +23,10 @@
       "name" : "Ivan",
       "age" : 23,
       "studentId" : "1"
+    }, {
+      "name" : "Den",
+      "age" : 24,
+      "studentId" : "5"
     } ],
     "subjects" : [ ]
   } ],

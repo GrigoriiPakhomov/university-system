@@ -1,6 +1,7 @@
 package university.service;
 
 import lombok.Getter;
+import java.util.Optional;
 import university.factory.UniversityFactory;
 import university.model.Auditorium;
 import university.model.Group;
@@ -75,22 +76,24 @@ public class UniversityManager {
         group.addSubject(subject);
     }
 
-    public Group findGroupByName(String groupName) {
+    public Optional<Group> findGroupByName(String groupName) {
+
         for (Group group : repository.getGroups()) {
             if (group.getGroupName().equalsIgnoreCase(groupName)) {
-                return group;
+                return Optional.of(group);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
-    public Teacher findTeacherByName(String teacherName) {
+    public Optional<Teacher> findTeacherByName(String teacherName) {
+
         for (Teacher teacher : repository.getTeachers()) {
             if (teacher.getName().equalsIgnoreCase(teacherName)) {
-                return teacher;
+                return Optional.of(teacher);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     public void printStudentsInGroup(Group group) {

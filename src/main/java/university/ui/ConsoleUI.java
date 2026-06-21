@@ -125,8 +125,8 @@ public class ConsoleUI {
         System.out.print("Имя преподавателя: ");
         String teacherName = scanner.nextLine();
 
-        Teacher teacher = manager.findTeacherByName(teacherName);
-
+        Teacher teacher = manager.findTeacherByName(teacherName)
+                .orElse(null);
         if (teacher==null) {
             System.out.println("Преподаватель не найден");
             return;
@@ -174,7 +174,7 @@ public class ConsoleUI {
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
-        Group group = manager.findGroupByName(groupName);
+        Group group = manager.findGroupByName(groupName).orElse(null);
 
         if (group==null) {
             System.out.println("Группа не найдена");
@@ -206,7 +206,7 @@ public class ConsoleUI {
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
-        Group group = manager.findGroupByName(groupName);
+        Group group = manager.findGroupByName(groupName).orElse(null);
 
         if (group==null) {
             System.out.println("Группа не найдена");
@@ -221,7 +221,7 @@ public class ConsoleUI {
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
-        Group group = manager.findGroupByName(groupName);
+        Group group = manager.findGroupByName(groupName).orElse(null);
 
         if (group==null) {
             System.out.println("Группа не найдена");
@@ -235,7 +235,7 @@ public class ConsoleUI {
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
-        Group group = manager.findGroupByName(groupName);
+        Group group = manager.findGroupByName(groupName).orElse(null);
 
         if (group==null) {
             System.out.println("Группа не найдена");
@@ -249,7 +249,7 @@ public class ConsoleUI {
         System.out.print("Имя преподавателя: ");
         String teacherName = scanner.nextLine();
 
-        Teacher teacher = manager.findTeacherByName(teacherName);
+        Teacher teacher = manager.findTeacherByName(teacherName).orElse(null);
 
         if (teacher==null) {
             System.out.println("Преподаватель не найден");
@@ -273,7 +273,7 @@ public class ConsoleUI {
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
-        Group group = manager.findGroupByName(groupName);
+        Group group = manager.findGroupByName(groupName).orElse(null);
 
         if (group==null) {
             System.out.println("Группа не найдена");
