@@ -11,11 +11,19 @@
     "name" : "Den",
     "age" : 24,
     "studentId" : "5"
+  }, {
+    "name" : "Виталик",
+    "age" : 18,
+    "studentId" : "7"
   } ],
   "teachers" : [ ],
   "groups" : [ {
     "groupName" : "999",
     "students" : [ {
+      "name" : "Виталик",
+      "age" : 18,
+      "studentId" : "7"
+    }, {
       "name" : "Bob",
       "age" : 19,
       "studentId" : "3"
@@ -31,5 +39,8 @@
     "subjects" : [ ]
   } ],
   "subjects" : [ ],
-  "auditoriums" : [ ]
+  "auditoriums" : [ {
+    "cabinetNumber" : 90,
+    "capacity" : 30
+  } ]
 }

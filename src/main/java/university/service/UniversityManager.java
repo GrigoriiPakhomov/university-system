@@ -1,7 +1,6 @@
 package university.service;
 
 import lombok.Getter;
-import java.util.Optional;
 import university.factory.UniversityFactory;
 import university.model.Auditorium;
 import university.model.Group;
@@ -11,23 +10,25 @@ import university.model.Teacher;
 import university.repository.UniversityRepository;
 import university.storage.JsonStorage;
 
+import java.util.Optional;
+
 /**
  * Центральный класс системы.
- * <p>
+ *
  * Реализует паттерн Singleton.
  * Отвечает за управление сущностями университета
  * и взаимодействие между Repository и Factory.
  */
-
 @Getter
 public class UniversityManager {
 
     private static UniversityManager instance;
+
     private final JsonStorage storage;
     private final UniversityRepository repository;
 
     public static UniversityManager getInstance() {
-        if (instance==null) {
+        if (instance == null) {
             instance = new UniversityManager();
         }
         return instance;
@@ -68,16 +69,25 @@ public class UniversityManager {
         return subject;
     }
 
-    public void addStudentToGroup(Student student, Group group) {
-        group.addStudent(student);
-    }
+    /**
+     * Создает предмет по имени преподавателя и номеру аудитории.
+     */
+    public boolean createSubject(String subjectName,
+                                 String teacherName,
+                                 int cabinetNumber) {
 
-    public void addSubjectToGroup(Subject subject, Group group) {
-        group.addSubject(subject);
+        Optional<Teacher> teacher = findTeacherByName(teacherName);
+        Optional<Auditorium> auditorium = findAuditoriumByNumber(cabinetNumber);
+
+        if (teacher.isEmpty() || auditorium.isEmpty()) {
+            return false;
+        }
+
+        createSubject(subjectName, teacher.get(), auditorium.get());
+        return true;
     }
 
     public Optional<Group> findGroupByName(String groupName) {
-
         for (Group group : repository.getGroups()) {
             if (group.getGroupName().equalsIgnoreCase(groupName)) {
                 return Optional.of(group);
@@ -87,13 +97,71 @@ public class UniversityManager {
     }
 
     public Optional<Teacher> findTeacherByName(String teacherName) {
-
         for (Teacher teacher : repository.getTeachers()) {
             if (teacher.getName().equalsIgnoreCase(teacherName)) {
                 return Optional.of(teacher);
             }
         }
         return Optional.empty();
+    }
+
+    public Optional<Student> findStudentById(String studentId) {
+        for (Student student : repository.getStudents()) {
+            if (student.getStudentId().equals(studentId)) {
+                return Optional.of(student);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Subject> findSubjectByName(String subjectName) {
+        for (Subject subject : repository.getSubjects()) {
+            if (subject.getName().equalsIgnoreCase(subjectName)) {
+                return Optional.of(subject);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Auditorium> findAuditoriumByNumber(int cabinetNumber) {
+        for (Auditorium auditorium : repository.getAuditoriums()) {
+            if (auditorium.getCabinetNumber() == cabinetNumber) {
+                return Optional.of(auditorium);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Добавляет студента в группу по идентификатору.
+     */
+    public boolean addStudentToGroup(String studentId, String groupName) {
+
+        Optional<Student> student = findStudentById(studentId);
+        Optional<Group> group = findGroupByName(groupName);
+
+        if (student.isEmpty() || group.isEmpty()) {
+            return false;
+        }
+
+        group.get().addStudent(student.get());
+        return true;
+    }
+
+    /**
+     * Добавляет предмет в группу по названию.
+     */
+    public boolean addSubjectToGroup(String subjectName, String groupName) {
+
+        Optional<Subject> subject = findSubjectByName(subjectName);
+        Optional<Group> group = findGroupByName(groupName);
+
+        if (subject.isEmpty() || group.isEmpty()) {
+            return false;
+        }
+
+        group.get().addSubject(subject.get());
+        return true;
     }
 
     public void printStudentsInGroup(Group group) {
@@ -122,6 +190,7 @@ public class UniversityManager {
 
     public void loadData() {
         UniversityRepository loadedRepository = storage.load();
+
         repository.getStudents().addAll(loadedRepository.getStudents());
         repository.getTeachers().addAll(loadedRepository.getTeachers());
         repository.getGroups().addAll(loadedRepository.getGroups());

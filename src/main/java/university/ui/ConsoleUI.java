@@ -1,10 +1,8 @@
 package university.ui;
 
-import university.model.Teacher;
-import university.model.Auditorium;
-import university.model.Student;
-import university.model.Subject;
+import lombok.extern.slf4j.Slf4j;
 import university.model.Group;
+import university.model.Teacher;
 import university.service.UniversityManager;
 import university.strategy.SortByAgeStrategy;
 
@@ -12,12 +10,14 @@ import java.util.Scanner;
 
 /**
  * Консольный пользовательский интерфейс.
- * <p>
- * Отвечает за взаимодействие пользователя
+ *
+ * Отвечает только за взаимодействие пользователя
  * с системой через меню.
  */
 
+@Slf4j
 public class ConsoleUI {
+
     private final Scanner scanner;
     private final UniversityManager manager;
 
@@ -28,9 +28,10 @@ public class ConsoleUI {
 
     public void start() {
         boolean running = true;
+
         while (running) {
             System.out.println("""
-                           
+                    
                     ===== Университетская система =====
                     1. Создать студента
                     2. Создать преподавателя
@@ -47,7 +48,9 @@ public class ConsoleUI {
                     """);
 
             System.out.print("Выберите пункт меню: ");
+
             int choice = readInt();
+
             switch (choice) {
                 case 1 -> createStudent();
                 case 2 -> createTeacher();
@@ -82,10 +85,11 @@ public class ConsoleUI {
         String studentId = scanner.nextLine();
 
         manager.createStudent(name, age, studentId);
-        System.out.println("Студент создан");
+        log.info("Создан студент: {}", studentId);
     }
 
     private void createTeacher() {
+
         System.out.print("Имя: ");
         String name = scanner.nextLine();
 
@@ -96,18 +100,20 @@ public class ConsoleUI {
         String subject = scanner.nextLine();
 
         manager.createTeacher(name, age, subject);
-        System.out.println("Преподаватель создан");
+        log.info("Создан преподаватель {}", name);
     }
 
     private void createGroup() {
+
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
         manager.createGroup(groupName);
-        System.out.println("Группа создана");
+        log.info("Создана группа {}", groupName);
     }
 
     private void createAuditorium() {
+
         System.out.print("Номер кабинета: ");
         int cabinetNumber = readInt();
 
@@ -115,115 +121,71 @@ public class ConsoleUI {
         int capacity = readInt();
 
         manager.createAuditorium(cabinetNumber, capacity);
-        System.out.println("Аудитория создана");
+        log.info("Созданa аудитория номер {}", cabinetNumber);
     }
 
     private void createSubject() {
+
         System.out.print("Название предмета: ");
         String subjectName = scanner.nextLine();
 
         System.out.print("Имя преподавателя: ");
         String teacherName = scanner.nextLine();
 
-        Teacher teacher = manager.findTeacherByName(teacherName)
-                .orElse(null);
-        if (teacher==null) {
-            System.out.println("Преподаватель не найден");
-            return;
-        }
-
         System.out.print("Номер аудитории: ");
-
         int cabinetNumber = readInt();
-        Auditorium auditorium = null;
 
-        for (Auditorium a : manager.getRepository().getAuditoriums()) {
-            if (a.getCabinetNumber()==cabinetNumber) {
-                auditorium = a;
-                break;
-            }
+        boolean created = manager.createSubject(subjectName, teacherName, cabinetNumber);
+
+        if (created) {
+            System.out.println("Предмет создан");
+        } else {
+            System.out.println("Преподаватель или аудитория не найдены");
         }
-
-        if (auditorium==null) {
-            System.out.println("Аудитория не найдена");
-            return;
-        }
-
-        manager.createSubject(subjectName, teacher, auditorium);
-        System.out.println("Предмет создан");
     }
 
     private void addStudentToGroup() {
+
         System.out.print("Номер студенческого билета: ");
         String studentId = scanner.nextLine();
 
-        Student student = null;
-
-        for (Student s : manager.getRepository().getStudents()) {
-            if (s.getStudentId().equals(studentId)) {
-                student = s;
-                break;
-            }
-        }
-
-        if (student==null) {
-            System.out.println("Студент не найден");
-            return;
-        }
-
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
-        Group group = manager.findGroupByName(groupName).orElse(null);
+        boolean added = manager.addStudentToGroup(studentId, groupName);
 
-        if (group==null) {
-            System.out.println("Группа не найдена");
-            return;
+        if (added) {
+            System.out.println("Студент добавлен в группу");
+        } else {
+            System.out.println("Студент или группа не найдены");
         }
-
-        manager.addStudentToGroup(student, group);
-        System.out.println("Студент добавлен в группу");
     }
 
     private void addSubjectToGroup() {
+
         System.out.print("Название предмета: ");
         String subjectName = scanner.nextLine();
 
-        Subject subject = null;
-
-        for (Subject s : manager.getRepository().getSubjects()) {
-            if (s.getName().equalsIgnoreCase(subjectName)) {
-                subject = s;
-                break;
-            }
-        }
-
-        if (subject==null) {
-            System.out.println("Предмет не найден");
-            return;
-        }
-
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
-        Group group = manager.findGroupByName(groupName).orElse(null);
+        boolean added = manager.addSubjectToGroup(subjectName, groupName);
 
-        if (group==null) {
-            System.out.println("Группа не найдена");
-            return;
+        if (added) {
+            System.out.println("Предмет добавлен в группу");
+        } else {
+            System.out.println("Предмет или группа не найдены");
         }
-
-        manager.addSubjectToGroup(subject, group);
-        System.out.println("Предмет добавлен в группу");
     }
 
     private void showStudentsInGroup() {
+
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
         Group group = manager.findGroupByName(groupName).orElse(null);
 
-        if (group==null) {
+        if (group == null) {
             System.out.println("Группа не найдена");
             return;
         }
@@ -232,12 +194,13 @@ public class ConsoleUI {
     }
 
     private void showSubjectsInGroup() {
+
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
         Group group = manager.findGroupByName(groupName).orElse(null);
 
-        if (group==null) {
+        if (group == null) {
             System.out.println("Группа не найдена");
             return;
         }
@@ -246,12 +209,13 @@ public class ConsoleUI {
     }
 
     private void showTeacherSubjects() {
+
         System.out.print("Имя преподавателя: ");
         String teacherName = scanner.nextLine();
 
         Teacher teacher = manager.findTeacherByName(teacherName).orElse(null);
 
-        if (teacher==null) {
+        if (teacher == null) {
             System.out.println("Преподаватель не найден");
             return;
         }
@@ -259,30 +223,34 @@ public class ConsoleUI {
         manager.printTeacherSubjects(teacher);
     }
 
-    private int readInt() {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Ошибка: введите число");
-            }
-        }
-    }
-
     private void sortStudentsByAge() {
+
         System.out.print("Название группы: ");
         String groupName = scanner.nextLine();
 
         Group group = manager.findGroupByName(groupName).orElse(null);
 
-        if (group==null) {
+        if (group == null) {
             System.out.println("Группа не найдена");
             return;
         }
 
         group.setSortStrategy(new SortByAgeStrategy());
         group.sortStudents();
+
         System.out.println("\nСтуденты группы по возрасту:");
+
         manager.printStudentsInGroup(group);
+    }
+
+    private int readInt() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                log.warn("Пользователь ввел некорректное число: {}", e.getMessage());
+                System.out.println("Ошибка: введите число");
+            }
+        }
     }
 }
