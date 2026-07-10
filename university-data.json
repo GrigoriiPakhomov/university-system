@@ -1,0 +1,46 @@
+{
+  "students" : [ {
+    "name" : "Bob",
+    "age" : 19,
+    "studentId" : "3"
+  }, {
+    "name" : "Ivan",
+    "age" : 23,
+    "studentId" : "1"
+  }, {
+    "name" : "Den",
+    "age" : 24,
+    "studentId" : "5"
+  }, {
+    "name" : "Виталик",
+    "age" : 18,
+    "studentId" : "7"
+  } ],
+  "teachers" : [ ],
+  "groups" : [ {
+    "groupName" : "999",
+    "students" : [ {
+      "name" : "Виталик",
+      "age" : 18,
+      "studentId" : "7"
+    }, {
+      "name" : "Bob",
+      "age" : 19,
+      "studentId" : "3"
+    }, {
+      "name" : "Ivan",
+      "age" : 23,
+      "studentId" : "1"
+    }, {
+      "name" : "Den",
+      "age" : 24,
+      "studentId" : "5"
+    } ],
+    "subjects" : [ ]
+  } ],
+  "subjects" : [ ],
+  "auditoriums" : [ {
+    "cabinetNumber" : 90,
+    "capacity" : 30
+  } ]
+}
